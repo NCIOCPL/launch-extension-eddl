@@ -1,15 +1,22 @@
 {
   "name": "launch-extension-eddl",
   "version": "0.1.0",
-  "description": "",
+  "description": "NCI Event Driven Data Layer(EDDL) implementation as Adobe Launch extension",
   "scripts": {
+    "package": "reactor-packager",
     "sandbox": "reactor-sandbox",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "National Cancer Institute",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NCIOCPL/launch-extension-eddl.git"
+  },
   "devDependencies": {
-    "@adobe/reactor-sandbox": "^10.8.1"
+    "@adobe/reactor-packager": "^3.0.5",
+    "@adobe/reactor-sandbox": "^10.8.1",
+    "@adobe/reactor-turbine": "^25.7.2"
   }
 }
