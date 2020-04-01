@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "NCI Event Driven Data Layer(EDDL) implementation as Adobe Launch extension",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src/**/*.*js* --fix",
     "package": "reactor-packager",
     "sandbox": "reactor-sandbox",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +18,9 @@
   "devDependencies": {
     "@adobe/reactor-packager": "^3.0.5",
     "@adobe/reactor-sandbox": "^10.8.1",
-    "@adobe/reactor-turbine": "^25.7.2"
+    "@adobe/reactor-turbine": "^25.7.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-babel": "^5.3.0"
   }
 }
