@@ -1,7 +1,5 @@
-'use strict';
-
-var objectAssign = require('@adobe/reactor-object-assign');
-var window = require('@adobe/reactor-window');
+const objectAssign = require('@adobe/reactor-object-assign');
+const window = require('@adobe/reactor-window');
 
 // We will name our Event-driven Data Layer (EDDL) 
 // NCIDataLayer to ensure that it does not conflict
@@ -13,14 +11,14 @@ _satellite.logger.debug("Begin EDDL Initialization");
 // keep track of the data for the page so subsequent click
 // events know the page they are on. This can then be added
 // into the event data.
-var context = {};
+let context = {};
 
 /**
  * Resets the current context. Currently only does it on
  * page load.
  * @param {object} ctx the full context object
  */
-var resetContext = function(ctx) {
+const resetContext = function(ctx) {
   context = ctx;
 }
 
@@ -28,7 +26,7 @@ var resetContext = function(ctx) {
  * Smushes context + individual event data
  * @param {object} evtObj The raw event object
  */
-var mergeContextAndData = function(evtObj) {
+const mergeContextAndData = function(evtObj) {
   var data = objectAssign({}, evtObj.data);
   var page = objectAssign({}, context.page);
   return {
@@ -44,7 +42,7 @@ var mergeContextAndData = function(evtObj) {
  * @param {string} evtName The name of the event
  * @param {object} evtObj The raw event object
  */
-var analyticsDispatcher = function(evtName, evtObj) {  
+const analyticsDispatcher = function(evtName, evtObj) {  
   var evtData = mergeContextAndData(evtObj);
   _satellite.logger.debug(evtData);
   _satellite.track(evtName, evtData);
@@ -56,7 +54,7 @@ var analyticsDispatcher = function(evtName, evtObj) {
  * @param {string} evtName The name of the event
  * @param {object} evtObj The raw object pushed into the data layer.
  */
-var pushPageLoad = function (evtName, evtObj) {
+const pushPageLoad = function (evtName, evtObj) {
   // Strip off the page object and store it in the context.
   var pageData = evtObj.page;
   if (!pageData) {
@@ -79,7 +77,7 @@ var pushPageLoad = function (evtName, evtObj) {
  * @param {*} evtName The name of the event
  * @param {*} evtObj The raw object pushed into the data layer.
  */
-var pushOther = function (evtName, evtObj) {
+const pushOther = function (evtName, evtObj) {
   _satellite.logger.debug("NCIDataLayer: Dispatching Other Event " + evtName);
   analyticsDispatcher(evtName, evtObj);
 }
@@ -88,11 +86,11 @@ var pushOther = function (evtName, evtObj) {
 // which will dispatch the events. NOTE: the signature for
 // push is arr.push(element1[, ...[, elementN]]) meaning
 // that push can be called with multipe elements.
-var pusher = function() {
+const pusher = function() {
   // Get all the arguments, as push takes in n number of arguments.
-  for (var i=0; i < arguments.length; i++) {
-    var evtType = arguments[i].type;
-    var evtName = arguments[i].event;
+  for (let i=0; i < arguments.length; i++) {
+    let evtType = arguments[i].type;
+    let evtName = arguments[i].event;
     
     if (!evtType) {
       _satellite.logger.error("NCIDataLayer: 'type' is missing from Event object");
@@ -122,7 +120,7 @@ window.NCIDataLayer = window.NCIDataLayer || [];
 if (window.NCIDataLayer.push !== pusher) {
   // Process all the existing items until the queue is
   // empty.
-  var existingItem;
+  let existingItem;
   while ((existingItem = window.NCIDataLayer.shift()) !== undefined) {
     analyticsDispatcher(existingItem.type, existingItem.data);
   }
