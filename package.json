@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "description": "NCI Event Driven Data Layer(EDDL) implementation as Adobe Launch extension",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src/**/*.*js* --fix",
-    "package": "reactor-packager",
+    "lint": "./node_modules/.bin/eslint ./src/**/*.*js*",
+    "package": "npm run lint && reactor-packager",
     "sandbox": "reactor-sandbox",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "./src/lib/main.js",
   "keywords": [],
   "author": "National Cancer Institute",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "@adobe/reactor-turbine": "^25.7.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-babel": "^5.3.0"
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-es5": "^1.5.0"
   }
 }
