@@ -47,7 +47,7 @@ var mergeContextAndData = function(evtObj) {
 var analyticsDispatcher = function(evtName, evtObj) {  
   var evtData = mergeContextAndData(evtObj);
   _satellite.logger.debug(evtData);
-  _satellite.track(evtName, evtData);
+  _satellite.track("EDDL:" + evtName, evtData);
 };
 
 /**
