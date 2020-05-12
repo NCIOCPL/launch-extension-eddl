@@ -3,7 +3,7 @@
 var objectAssign = require('@adobe/reactor-object-assign');
 var window = require('@adobe/reactor-window');
 
-// We will name our Event-driven Data Layer (EDDL)
+// We will name our Event-driven Data Layer (EDDL) 
 // NCIDataLayer to ensure that it does not conflict
 // with any future changes.
 _satellite.logger.debug('Begin EDDL Initialization');
@@ -26,28 +26,39 @@ var resetContext = function(ctx) {
 
 /**
  * Smushes context + individual event data
+ * @param {string} evtType The type of the event
  * @param {object} evtObj The raw event object
  */
-var mergeContextAndData = function(evtObj) {
+var mergeContextAndData = function(evtType, evtObj) {
   var data = objectAssign({}, evtObj.data);
   var page = objectAssign({}, context.page);
-  return {
-    page: page,
-    data: data
-  };
-};
+  
+  if (evtType === 'Other') {
+    return {
+      linkName: evtObj.linkName ? evtObj.linkName : 'UnknownLinkName',
+      page: page,
+      data: data
+    };
+  } else {
+    return {
+      page: page,
+      data: data
+    };
+  }
+}
 
 /**
  * Function that dispatches the analytics events.
- *
+ * 
  * This is what performs the satellite track event.
+ * @param {string} evtType The type of the event
  * @param {string} evtName The name of the event
  * @param {object} evtObj The raw event object
  */
-var analyticsDispatcher = function(evtName, evtObj) {  
-  var evtData = mergeContextAndData(evtObj);
+var analyticsDispatcher = function(evtType, evtName, evtObj) {  
+  var evtData = mergeContextAndData(evtType, evtObj);
   _satellite.logger.debug(evtData);
-  _satellite.track("EDDL:" + evtName, evtData);
+  _satellite.track('EDDL:' + evtName, evtData);
 };
 
 /**
@@ -70,7 +81,7 @@ var pushPageLoad = function (evtName, evtObj) {
   });
 
   _satellite.logger.debug('NCIDataLayer: Dispatching Page Load Event ' + evtName);
-  analyticsDispatcher(evtName, evtObj);
+  analyticsDispatcher('PageLoad', evtName, evtObj);
 };
 
 /**
@@ -81,7 +92,7 @@ var pushPageLoad = function (evtName, evtObj) {
  */
 var pushOther = function (evtName, evtObj) {
   _satellite.logger.debug('NCIDataLayer: Dispatching Other Event ' + evtName);
-  analyticsDispatcher(evtName, evtObj);
+  analyticsDispatcher('Other', evtName, evtObj);
 };
 
 // This is the replacement fn for window.NCIDataLayer.push,
@@ -93,7 +104,7 @@ var pusher = function() {
   for (var i = 0; i < arguments.length; i++) {
     var evtType = arguments[i].type;
     var evtName = arguments[i].event;
-
+    
     if (!evtType) {
       _satellite.logger.error("NCIDataLayer: 'type' is missing from Event object");
       continue;
@@ -102,7 +113,7 @@ var pusher = function() {
       _satellite.logger.error("NCIDataLayer: 'event' is missing from Event object");
       continue;
     }
-
+    
     if (evtType === 'PageLoad') {
       pushPageLoad(evtName, arguments[i]);
     } else if (evtType === 'Other') {
