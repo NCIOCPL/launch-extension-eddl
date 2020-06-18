@@ -36,7 +36,7 @@ module.exports = {
 		'es5/no-typeof-symbol': 2,
 		'es5/no-unicode-code-point-escape': 2,
 		'es5/no-unicode-regex': 2,
-		
+
 		/**
 		 * Strict mode
 		 */
@@ -242,5 +242,6 @@ module.exports = {
 	globals: {
 		Simulate: true,
 		_satellite: true,
+		turbine: true,
 	},
 }

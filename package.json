@@ -1,6 +1,6 @@
 {
   "name": "launch-extension-eddl",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NCI Event Driven Data Layer(EDDL) implementation as Adobe Launch extension",
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src/**/*.*js*",
