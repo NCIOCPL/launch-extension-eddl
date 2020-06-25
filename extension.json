@@ -2,7 +2,7 @@
   "displayName": "NCI OCPL Event-driven Data Layer (EDDL)",
   "name": "nci-ocpl-event-driven-data-layer-eddl",
   "platform": "web",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Event-driven Data Layer allows website to raise analytics agnostic events, which Launch translates into Adobe Analytics requests.",
   "author": {
     "name": "NCI OCPL"

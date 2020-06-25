@@ -101,6 +101,11 @@ module.exports = function (settings, event) {
         'Event Details did not contain language'
       );
       setVarOrError(
+        'title',
+        'prop10',
+        'Event Details did not contain title'
+      );
+      setVarOrError(
         'metaTitle',
         'prop10',
         'Event Details did not contain metaTitle'
