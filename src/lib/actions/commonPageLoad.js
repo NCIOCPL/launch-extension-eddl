@@ -102,7 +102,7 @@ module.exports = function (settings, event) {
       );
       setVarOrError(
         'title',
-        'prop10',
+        'prop6',
         'Event Details did not contain title'
       );
       setVarOrError(
